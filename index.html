@@ -14,19 +14,17 @@
 <!--    (mira el archivo LEEME.md, sección "Instalar píxel")        -->
 <!-- ============================================================= -->
 
-<!-- === META PIXEL (Facebook / Instagram) — píxel RR GROUP === -->
+<!-- === META PIXEL (Facebook / Instagram) ===
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '2363297150746632');
+fbq('init', 'TU_PIXEL_ID_AQUI');
 fbq('track', 'PageView');
-fbq('track', 'ViewContent', {content_name:'Tenis Velez Thomas', content_type:'product', value:150000, currency:'COP'});
 </script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2363297150746632&ev=PageView&noscript=1"/></noscript>
-<!-- === FIN META PIXEL === -->
+=== FIN META PIXEL === -->
 
 <!-- === TIKTOK PIXEL ===
 <script>
@@ -968,7 +966,7 @@ ttq.page();
     try{ localStorage.setItem('pedidoVelez', JSON.stringify(datos)); }catch(err){}
 
     // Dispara el evento del píxel (descomenta cuando lo instales)
-    if(window.fbq) fbq('track','Lead',{content_name:'Tenis Velez Thomas', value:150000, currency:'COP'});
+    // if(window.fbq) fbq('track','Lead');
     // if(window.ttq) ttq.track('SubmitForm');
 
     // Arma el mensaje de WhatsApp con todos los datos del pedido
