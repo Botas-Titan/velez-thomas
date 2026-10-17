@@ -737,7 +737,7 @@ ttq.page();
     <p style="margin-top:10px">📲 ¿Dudas? <a href="https://wa.me/573224018992" target="_blank">Escríbenos por WhatsApp</a></p>
     <p class="legal">
       Envío gratis a todo Colombia · Pago contraentrega · Garantía extendida 3+ meses.<br>
-      © 2026 Todos los derechos reservados. Ver <a href="gracias.html#politicas">políticas de garantía</a>.
+      © 2026 Todos los derechos reservados. Ver <a href="gracias.html?ver=politicas#politicas">políticas de garantía</a>.
     </p>
   </footer>
 
@@ -965,12 +965,6 @@ ttq.page();
       celular: f.celular.value, departamento: f.departamento.value,
       ciudad: f.ciudad.value, direccion: f.direccion.value, notas: f.notas.value
     };
-    try{ localStorage.setItem('pedidoVelez', JSON.stringify(datos)); }catch(err){}
-
-    // Dispara el evento del píxel (descomenta cuando lo instales)
-    if(window.fbq) fbq('track','Lead',{content_name:'Tenis Velez Thomas', value:150000, currency:'COP'});
-    // if(window.ttq) ttq.track('SubmitForm');
-
     // Arma el mensaje de WhatsApp con todos los datos del pedido
     var msg = '🛒 *NUEVO PEDIDO — Velez Thomas*\n\n' +
       '👤 Nombre: ' + datos.nombre + '\n' +
@@ -983,8 +977,22 @@ ttq.page();
       (datos.notas ? ('\n📝 Notas: ' + datos.notas) : '') +
       '\n💰 Total: $150.000 (pago contraentrega)';
 
-    // Abre WhatsApp en una pestaña nueva con el pedido ya redactado, hacia tu número
-    window.open('https://wa.me/' + WA_NUMERO + '?text=' + encodeURIComponent(msg), '_blank');
+    // Identificador único + hora del pedido. gracias.html los usa para contar
+    // la compra UNA sola vez y solo cuando el pedido es real y reciente.
+    datos.id  = 'VT-' + Date.now() + '-' + Math.random().toString(36).slice(2,8);
+    datos.ts  = Date.now();
+    datos.msg = msg;
+    try{ localStorage.setItem('pedidoVelez', JSON.stringify(datos)); }catch(err){}
+
+    // Evento Lead (formulario enviado)
+    if(window.fbq) fbq('track','Lead',
+      {content_name:'Tenis Velez Thomas', content_type:'product', value:150000, currency:'COP'},
+      {eventID: datos.id + '-lead'});
+    // if(window.ttq) ttq.track('SubmitForm');
+
+    // Abre WhatsApp en una pestaña nueva con el pedido ya redactado, hacia tu número.
+    // Si el navegador bloquea la ventana, gracias.html deja el botón listo con el pedido.
+    try{ window.open('https://wa.me/' + WA_NUMERO + '?text=' + encodeURIComponent(msg), '_blank'); }catch(err){}
 
     // Lleva al cliente a la página de gracias con el resumen de su pedido
     window.location.href = 'gracias.html';
