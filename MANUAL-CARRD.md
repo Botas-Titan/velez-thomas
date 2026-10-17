@@ -15,7 +15,7 @@
 ## 2. Qué quiero que hagas, asistente
 
 1. Antes que nada, **ábreme `carrd-embed.html`** y ayúdame a editar 2 valores al inicio del `<script>`:
-   - `var WA_NUMERO = '573224018992';` → reemplázalo por mi número real de WhatsApp (formato: 57 + número, sin `+` ni espacios). **Pregúntame el número si no te lo he dado.**
+   - `var WA_NUMERO = '573224146909';` → reemplázalo por mi número real de WhatsApp (formato: 57 + número, sin `+` ni espacios). **Pregúntame el número si no te lo he dado.**
    - `var VIDEO_URL = '';` → si ya tengo el enlace directo del video `.mp4`, ponlo ahí; si no, déjalo vacío.
 2. Verifica que el archivo abra bien en el navegador (fotos visibles, contador corriendo, y que al enviar el formulario aparezca la pantalla de gracias con las políticas). Si algo falla, corrígelo.
 3. Abre **Carrd** en el navegador de Cowork (`https://carrd.co`) y **guíame paso a paso** mientras yo hago el login y pego el código. Ve indicándome cada clic y revisando conmigo que quede bien.

@@ -53,7 +53,7 @@ Por defecto, al enviar el formulario redirige a `gracias.html`. Para que además
 - **Google Sheets** (gratis, guarda todo en una hoja).
 - **n8n** (ya lo usas): mando los datos a un webhook y automatizas.
 
-También cambia el número de WhatsApp: busca `573224018992` en `index.html` y `gracias.html` y pon tu número real (con 57 y sin espacios).
+También cambia el número de WhatsApp: busca `573224146909` en `index.html` y `gracias.html` y pon tu número real (con 57 y sin espacios).
 
 ---
 
