@@ -994,10 +994,63 @@ ttq.page();
     // Si el navegador bloquea la ventana, gracias.html deja el botón listo con el pedido.
     try{ window.open('https://wa.me/' + WA_NUMERO + '?text=' + encodeURIComponent(msg), '_blank'); }catch(err){}
 
-    // Lleva al cliente a la página de gracias con el resumen de su pedido
-    window.location.href = 'gracias.html';
+    // Guarda el pedido en Firestore (misma colección "pedidos" que Timberland).
+    // IMPORTANTE: solo navegamos a gracias.html DESPUÉS de que termine el guardado,
+    // porque si cambiamos de página antes, el navegador corta el envío y el pedido se pierde.
+    var irAGracias = function(){ window.location.href = 'gracias.html'; };
+    if(window.guardarPedido){
+      window.guardarPedido({
+        tipo: 'formulario',
+        producto: 'VELEZ THOMAS',
+        nombre: datos.nombre,
+        telefono: datos.celular,
+        departamento: datos.departamento,
+        ciudad: datos.ciudad,
+        direccion: datos.direccion,
+        observaciones: datos.notas,
+        pedido: [{ color: datos.color, talla: datos.talla, cantidad: 1, precio: 150000 }],
+        total: 150000,
+        pedidoId: datos.id
+      }).then(irAGracias, irAGracias);
+    } else {
+      irAGracias();
+    }
     return false;
   }
 </script>
+
+<!-- ════════════ FIREBASE / FIRESTORE — guarda cada pedido ════════════ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDyzTKk0zpXUISyNBae2FJprptbLPWsknk",
+    authDomain: "titan-botas.firebaseapp.com",
+    projectId: "titan-botas",
+    storageBucket: "titan-botas.firebasestorage.app",
+    messagingSenderId: "730925861936",
+    appId: "1:730925861936:web:60dbfceec01b03d86671f5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Guarda un pedido en Firestore (coleccion "pedidos").
+  // Resuelve en <=6s pase lo que pase, para no dejar al cliente esperando
+  // si la red falla.
+  window.guardarPedido = function(data){
+    const guardar = addDoc(collection(db, "pedidos"), Object.assign({}, data, {
+      estado: "nuevo",
+      creado: serverTimestamp(),
+      origen: location.href,
+      navegador: navigator.userAgent
+    })).then(function(){ return true; })
+      .catch(function(err){ console.error("Pedido NO guardado en Firestore:", err); return false; });
+    const limite = new Promise(function(res){ setTimeout(function(){ res("timeout"); }, 6000); });
+    return Promise.race([guardar, limite]);
+  };
+</script>
+
 </body>
 </html>
