@@ -345,6 +345,45 @@ ttq.page();
   .space-sticky{height:70px}
 
   .divider{height:1px;background:var(--linea)}
+
+  /* Nombre del mes de la oferta (se completa solo con JS) */
+  .mes-oferta{font-style:normal}
+  .bono h2 em{color:var(--miel)}
+  .precio-off small{display:block;font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;opacity:.95;margin-top:1px}
+  .precio-off{text-align:center;line-height:1.1}
+
+  /* Objeción de talla */
+  .talla-cambio{display:flex;gap:10px;align-items:flex-start;margin-top:14px;padding:13px 14px;
+    background:rgba(32,161,94,.12);border:1.5px solid var(--verde);border-radius:12px;text-align:left}
+  .talla-cambio .tc-ic{font-size:1.2rem;line-height:1.3}
+  .talla-cambio p{font-size:.88rem;color:var(--texto);margin:0}
+  .talla-cambio b{color:#fff}
+
+  /* Temporizador agotado */
+  .bono.expirado .cd-box{opacity:.4}
+  .bono.expirado .cd-label{color:#ffb3a8;opacity:1;font-weight:700}
+
+  /* Recuadro de confirmación antes de WhatsApp */
+  .modal-confirm{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);
+    display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+  .modal-confirm[hidden]{display:none}
+  .mc-card{background:#0b0b0a;border:1px solid var(--linea);border-radius:18px;padding:22px 18px;
+    width:100%;max-width:420px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+  .mc-check{width:52px;height:52px;margin:0 auto 12px;border-radius:50%;border:3px solid var(--verde);
+    color:var(--verde);font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .mc-card h3{font-size:1.2rem;color:#fff;margin-bottom:8px}
+  .mc-txt{font-size:.9rem;color:var(--gris);margin-bottom:14px}
+  .mc-precio{background:var(--crema2);border:1px solid var(--linea);border-radius:12px;padding:12px 14px;
+    text-align:left;margin-bottom:16px;font-size:.88rem;color:var(--texto)}
+  .mc-precio b{display:block;font-size:1.05rem;color:#fff;margin-bottom:6px}
+  .mc-precio div{margin-bottom:3px}
+  .mc-precio .mc-ok{color:#3ddc84;font-weight:600}
+  .mc-precio small{display:block;margin-top:6px;font-size:.72rem;color:var(--gris)}
+  .mc-wa{display:block;width:100%;background:#25D366;color:#052e14;font-weight:800;font-size:1.02rem;
+    border:none;border-radius:12px;padding:15px;cursor:pointer;font-family:inherit}
+  .mc-wa:active{transform:scale(.98)}
+  .mc-volver{display:block;width:100%;margin-top:10px;background:transparent;color:var(--gris);
+    border:none;font-size:.85rem;cursor:pointer;padding:8px;font-family:inherit}
 </style>
 </head>
 <body>
@@ -354,11 +393,11 @@ ttq.page();
   <div class="topbar">
     <div class="track">
       <span>🚚 <b>ENVÍO GRATIS</b> + PAGO CONTRAENTREGA en toda Colombia 🇨🇴</span>
-      <span>🎁 <b>REGALO HOY:</b> par de medias GRATIS con tu compra</span>
+      <span>🔥 <b>25% OFF</b> solo en <em class="mes-oferta">este mes</em> + regalo a tu elección</span>
       <span>🛡️ <b>GARANTÍA EXTENDIDA</b> 3+ meses</span>
       <!-- copia idéntica para que el bucle sea continuo -->
       <span>🚚 <b>ENVÍO GRATIS</b> + PAGO CONTRAENTREGA en toda Colombia 🇨🇴</span>
-      <span>🎁 <b>REGALO HOY:</b> par de medias GRATIS con tu compra</span>
+      <span>🔥 <b>25% OFF</b> solo en <em class="mes-oferta">este mes</em> + regalo a tu elección</span>
       <span>🛡️ <b>GARANTÍA EXTENDIDA</b> 3+ meses</span>
     </div>
   </div>
@@ -373,15 +412,15 @@ ttq.page();
     </div>
 
     <h1><span>Velez Thomas</span></h1>
-    <div class="stars-inline">★★★★★ <b>4.9</b> · +80.000 clientes felices</div>
+    <div class="stars-inline">★★★★★ <b>4.9</b> · +2.000 ventas este mes</div>
 
     <!-- Precio -->
     <div class="precio-box">
       <div class="precio-left">
         <span class="precio-new">$150.000</span>
-        <span class="precio-old">Antes $329.900</span>
+        <span class="precio-old">Antes $200.000</span>
       </div>
-      <span class="precio-off">-55%</span>
+      <span class="precio-off">-25%<small>solo <em class="mes-oferta">este mes</em></small></span>
     </div>
 
     <!-- Selector de color -->
@@ -398,7 +437,7 @@ ttq.page();
     </div>
 
     <!-- 2. CTA principal -->
-    <a href="#comprar" class="cta">¡Los quiero ya!
+    <a href="#comprar" class="cta">Elegir mi talla
       <small>Paga cuando lo recibas en casa</small></a>
     <p class="cta-note">🔒 Compra segura · Sin pagos por adelantado</p>
 
@@ -413,7 +452,7 @@ ttq.page();
     <h2>Beneficios de comprar hoy</h2>
     <div class="ben-grid">
       <div class="ben"><div class="ic">🚚</div><b>Envío gratis</b><span>Pago contraentrega en todo el país</span></div>
-      <div class="ben"><div class="ic">🧦</div><b>Regalo de hoy</b><span>Par de medias premium GRATIS</span></div>
+      <div class="ben"><div class="ic">🎁</div><b>Regalo a tu elección</b><span>Par de medias o cordones extra GRATIS</span></div>
       <div class="ben"><div class="ic">🛡️</div><b>Garantía extendida</b><span>3+ meses de cobertura real</span></div>
       <div class="ben"><div class="ic">↩️</div><b>Cambios fáciles</b><span>Cambio de talla sin costo</span></div>
     </div>
@@ -498,6 +537,10 @@ ttq.page();
       <tr><td>43</td><td>28.0 cm</td><td>43</td></tr>
       <tr><td>44</td><td>28.5 cm</td><td>44</td></tr>
     </table>
+    <div class="talla-cambio">
+      <span class="tc-ic">✅</span>
+      <p><b>¿Y si no me quedan?</b> Tranquilo, hacemos el primer cambio de talla totalmente gratis en tu domicilio.</p>
+    </div>
     <p class="tallas-tip">💡 ¿Dudas con tu talla? Escríbenos por WhatsApp y te asesoramos antes de comprar.</p>
   </section>
 
@@ -520,8 +563,8 @@ ttq.page();
   <!-- ========== 7 y 8. NÚMEROS ========== -->
   <section class="stats">
     <div class="sello-pedidos">
-      <b>+80.000</b>
-      <span>Pedidos<br>entregados</span>
+      <b>+2.000</b>
+      <span>Ventas<br>este mes</span>
     </div>
     <div class="badge-rating">
       <span class="check">✅</span>
@@ -608,8 +651,8 @@ ttq.page();
   <!-- ========== 9. SEGUNDO CTA ========== -->
   <section class="sec" style="text-align:center;background:var(--crema2)">
     <div class="callout-blanco">
-      <h2>Únete a los +80.000 clientes</h2>
-      <p>Aprovecha el precio de hoy antes de que suba</p>
+      <h2>Únete a las +2.000 ventas de este mes</h2>
+      <p>Aprovecha el 25% de descuento de <em class="mes-oferta">este mes</em> antes de que termine</p>
     </div>
     <a href="#comprar" class="cta">Comprar ahora — $150.000
       <small>Envío gratis · Paga al recibir</small></a>
@@ -633,15 +676,15 @@ ttq.page();
 
   <!-- ========== 12. BONO + CONTADOR ========== -->
   <section class="sec bono">
-    <span class="tag">🎁 Bono de hoy</span>
-    <h2>Lleva un <span>par de medias GRATIS</span></h2>
-    <p>Solo para los pedidos que se hagan hoy. La oferta termina en:</p>
+    <span class="tag">🔥 Oferta de <em class="mes-oferta">este mes</em></span>
+    <h2><span>25% de descuento</span> solo en <em class="mes-oferta">este mes</em></h2>
+    <p>Elige además tu regalo: par de medias o cordones extra. El envío es gratis si confirmas tu pedido antes de que termine el contador:</p>
     <div class="countdown" id="countdown">
       <div class="cd-box"><b id="cd-m">15</b><span>Min</span></div>
       <div class="cd-box"><b id="cd-s">00</b><span>Seg</span></div>
     </div>
-    <p class="cd-label">⏳ El regalo se retira automáticamente cuando el contador llegue a cero</p>
-    <a href="#comprar" class="cta" style="background:var(--miel);color:var(--negro);box-shadow:0 8px 20px rgba(200,134,47,.4)">Reclamar mi regalo</a>
+    <p class="cd-label" id="cd-label">⏳ Pasado este tiempo se pierde el envío gratis</p>
+    <a href="#comprar" class="cta" style="background:var(--miel);color:var(--negro);box-shadow:0 8px 20px rgba(200,134,47,.4)">Aprovechar el descuento</a>
   </section>
 
   <!-- ========== 13. FORMULARIO ========== -->
@@ -655,7 +698,8 @@ ttq.page();
       <div class="resumen">
         <div class="r-line"><span>Producto</span><span><b>Tenis Thomas</b></span></div>
         <div class="r-line"><span>Color</span><span id="res-color">Negro</span></div>
-        <div class="r-line"><span>Regalo</span><span>🧦 Medias premium</span></div>
+        <div class="r-line"><span>Descuento</span><span>25% OFF · <em class="mes-oferta">este mes</em></span></div>
+        <div class="r-line"><span>Regalo</span><span id="res-regalo">🧦 Par de medias</span></div>
         <div class="r-total"><span>Total a pagar</span><span>$150.000</span></div>
       </div>
 
@@ -680,6 +724,14 @@ ttq.page();
             <option>41</option><option>42</option><option>43</option><option>44</option>
           </select>
         </div>
+      </div>
+
+      <div class="field">
+        <label>Regalo que prefieres <span class="req">*</span></label>
+        <select name="regalo" id="sel-regalo" required onchange="syncRegalo()">
+          <option value="Par de medias">Par de medias 🧦</option>
+          <option value="Cordones extra">Cordones extra 👟</option>
+        </select>
       </div>
 
       <div class="field">
@@ -745,8 +797,25 @@ ttq.page();
 
   <!-- Barra fija móvil -->
   <div class="sticky-bar">
-    <div class="p"><s>$329.900</s><b>$150.000</b></div>
-    <a href="#comprar">Comprar ahora</a>
+    <div class="p"><s>$200.000</s><b>$150.000</b></div>
+    <a href="#comprar" id="btn-sticky" onclick="return comprarAhora(event)">Comprar ahora</a>
+  </div>
+
+  <!-- Recuadro de confirmación: aparece antes de enviar al cliente a WhatsApp -->
+  <div class="modal-confirm" id="modal-confirm" hidden role="dialog" aria-modal="true" aria-labelledby="mc-titulo">
+    <div class="mc-card">
+      <div class="mc-check">✓</div>
+      <h3 id="mc-titulo">¡Estás a un paso de completar tu pedido!</h3>
+      <p class="mc-txt">Tus datos están preparados. Envíanos el mensaje por WhatsApp para que nuestro equipo pueda recibir tu solicitud y confirmar los detalles.</p>
+      <div class="mc-precio">
+        <b>Precio final: $150.000 COP</b>
+        <div class="mc-ok" id="mc-envio">✓ Envío incluido a toda Colombia</div>
+        <div>✓ Pagas cuando recibes tu pedido.</div>
+        <small id="mc-nota">Sin costo adicional de envío. Aplican las condiciones de cobertura y entrega que correspondan.</small>
+      </div>
+      <button type="button" class="mc-wa" id="mc-enviar" onclick="enviarPorWhatsApp()">💬 Enviar pedido por WhatsApp</button>
+      <button type="button" class="mc-volver" onclick="cerrarConfirmacion()">← Corregir mis datos</button>
+    </div>
   </div>
 
 </div>
@@ -891,25 +960,39 @@ ttq.page();
     v.load();
   })();
 
-  // ---- Contador de oferta: 15 minutos reales por visita ----
-  // Se guarda la hora de fin en esta pestaña (sessionStorage), así que si el
-  // cliente recarga o navega por la página sigue contando los mismos 15 min;
-  // en una visita nueva (pestaña/sesión nueva) arrancan otros 15 min.
-  var CD_CLAVE = 'ofertaVelezFin';
+  // ---- Oferta del mes: el nombre del mes se actualiza solo cada mes ----
+  var MESES_LARGO = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var hoyOferta = new Date();
+  var mesOferta = MESES_LARGO[hoyOferta.getMonth()];
+  document.querySelectorAll('.mes-oferta').forEach(function(el){ el.textContent = mesOferta; });
+
+  // ---- Contador de oferta: 15 minutos que NO se reinician ----
+  // La hora de fin se guarda en el navegador (localStorage): si el cliente recarga,
+  // cierra y vuelve a entrar, el contador sigue donde iba y, al llegar a cero,
+  // se queda en cero. Se renueva únicamente cuando cambia el mes de la oferta.
+  var CD_CLAVE = 'ofertaVelezFin-' + hoyOferta.getFullYear() + '-' + (hoyOferta.getMonth()+1);
   var cdFin = (function(){
     var guardado = null;
-    try{ guardado = sessionStorage.getItem(CD_CLAVE); }catch(e){}
-    if(guardado) return parseInt(guardado, 10);
+    try{ guardado = localStorage.getItem(CD_CLAVE); }catch(e){}
+    if(guardado && !isNaN(parseInt(guardado, 10))) return parseInt(guardado, 10);
     var fin = Date.now() + 15*60*1000;
-    try{ sessionStorage.setItem(CD_CLAVE, fin); }catch(e){}
+    try{ localStorage.setItem(CD_CLAVE, fin); }catch(e){}
     return fin;
   })();
+  var cdExpirado = false;
+  function marcarExpirado(){
+    cdExpirado = true;
+    var sec = document.querySelector('.bono'); if(sec) sec.classList.add('expirado');
+    var lb = document.getElementById('cd-label');
+    if(lb) lb.textContent = '⛔ Se acabó el tiempo: ya perdiste el envío gratis. Aún puedes aprovechar el 25% de descuento de ' + mesOferta + '.';
+  }
   function tick(){
     var diff = Math.max(0, cdFin - Date.now());
     var m = Math.floor(diff/6e4);
     var s = Math.floor(diff%6e4/1000);
     document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
     document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    if(diff === 0 && !cdExpirado) marcarExpirado();
   }
   setInterval(tick,1000); tick();
 
@@ -955,27 +1038,70 @@ ttq.page();
     document.body.classList.toggle('scrolled', window.scrollY>600);
   });
 
-  // ---- Al enviar el formulario: arma el mensaje y lo manda a WhatsApp ----
-  function prepararEnvio(e){
-    e.preventDefault(); // evitamos que Chrome abra gracias.html?datos... (falla en archivos locales)
+  // ---- Regalo elegido: actualiza el resumen del pedido ----
+  function syncRegalo(){
+    var v = document.getElementById('sel-regalo').value;
+    var icono = v === 'Cordones extra' ? '👟 ' : '🧦 ';
+    document.getElementById('res-regalo').textContent = icono + v;
+  }
 
+  // ---- Pedido: datos, mensaje de WhatsApp y recuadro de confirmación ----
+  function recolectarDatos(){
     var f = document.getElementById('form-compra');
-    var datos = {
-      nombre: f.nombre.value, color: f.color.value, talla: f.talla.value,
+    return {
+      nombre: f.nombre.value, color: f.color.value, talla: f.talla.value, regalo: f.regalo.value,
       celular: f.celular.value, departamento: f.departamento.value,
       ciudad: f.ciudad.value, direccion: f.direccion.value, notas: f.notas.value
     };
-    // Arma el mensaje de WhatsApp con todos los datos del pedido
-    var msg = '🛒 *NUEVO PEDIDO — Velez Thomas*\n\n' +
-      '👤 Nombre: ' + datos.nombre + '\n' +
-      '👟 Color: ' + datos.color + '\n' +
-      '📏 Talla: ' + datos.talla + '\n' +
-      '📱 Celular: ' + datos.celular + '\n' +
-      '📍 Departamento: ' + datos.departamento + '\n' +
-      '🏙️ Ciudad: ' + datos.ciudad + '\n' +
-      '🏠 Dirección: ' + datos.direccion +
-      (datos.notas ? ('\n📝 Notas: ' + datos.notas) : '') +
+  }
+
+  function mensajeWhatsApp(d){
+    return '🛒 *NUEVO PEDIDO — Velez Thomas*\n\n' +
+      '👤 Nombre: ' + d.nombre + '\n' +
+      '👟 Color: ' + d.color + '\n' +
+      '📏 Talla: ' + d.talla + '\n' +
+      '🎁 Regalo: ' + d.regalo + '\n' +
+      '📱 Celular: ' + d.celular + '\n' +
+      '📍 Departamento: ' + d.departamento + '\n' +
+      '🏙️ Ciudad: ' + d.ciudad + '\n' +
+      '🏠 Dirección: ' + d.direccion +
+      (d.notas ? ('\n📝 Notas: ' + d.notas) : '') +
+      '\n🔥 Oferta: 25% OFF de ' + mesOferta +
       '\n💰 Total: $150.000 (pago contraentrega)';
+  }
+
+  // Muestra el recuadro "¡Estás a un paso de completar tu pedido!".
+  // Solo lo muestra: el pedido NO se guarda ni se cuenta hasta confirmar ahí.
+  function abrirConfirmacion(){
+    // Si el envío gratis ya se perdió (contador en cero), no se promete en el recuadro
+    var envio = document.getElementById('mc-envio'), nota = document.getElementById('mc-nota');
+    if(cdExpirado){
+      envio.textContent = 'El costo de envío lo confirmamos por WhatsApp.';
+      envio.classList.remove('mc-ok');
+      nota.textContent = 'Aplican las condiciones de cobertura y entrega que correspondan.';
+    }
+
+    var m = document.getElementById('modal-confirm');
+    m.hidden = false;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('mc-enviar').focus();
+  }
+
+  function cerrarConfirmacion(){
+    document.getElementById('modal-confirm').hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  // Botón del recuadro = confirmación real del pedido (lo que antes hacía el formulario)
+  var enviandoPedido = false;
+  function enviarPorWhatsApp(){
+    if(enviandoPedido) return; // evita doble clic = pedido duplicado
+    enviandoPedido = true;
+    var btn = document.getElementById('mc-enviar');
+    btn.textContent = 'Enviando tu pedido…';
+
+    var datos = recolectarDatos();
+    var msg = mensajeWhatsApp(datos);
 
     // Identificador único + hora del pedido. gracias.html los usa para contar
     // la compra UNA sola vez y solo cuando el pedido es real y reciente.
@@ -1007,7 +1133,9 @@ ttq.page();
         departamento: datos.departamento,
         ciudad: datos.ciudad,
         direccion: datos.direccion,
-        observaciones: datos.notas,
+        observaciones: (datos.notas ? datos.notas + ' | ' : '') + 'Regalo: ' + datos.regalo,
+        regalo: datos.regalo,
+        oferta: '25% OFF ' + mesOferta,
         pedido: [{ color: datos.color, talla: datos.talla, cantidad: 1, precio: 150000 }],
         total: 150000,
         pedidoId: datos.id
@@ -1015,7 +1143,37 @@ ttq.page();
     } else {
       irAGracias();
     }
+  }
+
+  // Si el cliente vuelve atrás desde WhatsApp/gracias, el recuadro queda listo de nuevo
+  window.addEventListener('pageshow', function(){
+    enviandoPedido = false;
+    var btn = document.getElementById('mc-enviar');
+    if(btn) btn.textContent = '💬 Enviar pedido por WhatsApp';
+    cerrarConfirmacion();
+  });
+
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') cerrarConfirmacion(); });
+
+  // Botón "Confirmar mi pedido" del formulario: abre el recuadro de confirmación
+  function prepararEnvio(e){
+    e.preventDefault(); // evitamos que el navegador abra gracias.html?datos...
+    abrirConfirmacion();
     return false;
+  }
+
+  // Botón fijo "Comprar ahora": si los datos ya están completos confirma la compra;
+  // si faltan, lleva al formulario (y señala lo que falta si ya empezó a llenarlo)
+  function comprarAhora(e){
+    var f = document.getElementById('form-compra');
+    if(f.checkValidity()){
+      e.preventDefault();
+      abrirConfirmacion();
+      return false;
+    }
+    var empezo = !!(f.nombre.value || f.celular.value || f.departamento.value || f.ciudad.value || f.direccion.value);
+    if(empezo) setTimeout(function(){ f.reportValidity(); }, 450);
+    return true; // deja que el enlace #comprar haga scroll al formulario
   }
 </script>
 
