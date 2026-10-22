@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-CO">
+<html lang="es-CO" data-mp="velez-thomas" data-wa="573224146909">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +22,7 @@ fbq('track','PageView');
 (function(){
   try{
     if(location.search.indexOf('ver=politicas') > -1) return;   // solo viene a leer
+    if(location.search.indexOf('ref=') > -1) return;                // pago con Mercado Pago: se cuenta al verificarlo
 
     var crudo = localStorage.getItem('pedidoVelez');
     if(!crudo) return;                                          // no llenó el formulario
@@ -93,6 +94,7 @@ fbq('track','PageView');
   </div>
 
   <div class="sec">
+<div id="mp-estado" hidden></div>
 
     <div class="card">
       <h2>📦 ¿Qué sigue ahora?</h2>
@@ -169,5 +171,7 @@ fbq('track','PageView');
     }catch(e){}
   })();
 </script>
+<script src="mp.js"></script>
+<script>mpGracias();</script>
 </body>
 </html>
