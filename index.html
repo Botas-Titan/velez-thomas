@@ -34,6 +34,12 @@ fbq('track', 'ViewContent', {content_name:'Tenis Velez Thomas', content_type:'pr
 ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
 ttq.load('DBJCB5BC77U7TR2UDGP0');
 ttq.page();
+// El ttclid llega en la URL del anuncio. Se guarda porque al pasar a
+// gracias.html se pierde, y el servidor lo necesita para cruzar la venta.
+try{
+  var _tt = new URLSearchParams(location.search).get('ttclid');
+  if(_tt) localStorage.setItem('ttclid', _tt);
+}catch(e){}
 ttq.track('ViewContent', {
   contents: [{ content_id:'velez-thomas', content_type:'product', content_name:'Tenis Velez Thomas' }],
   value: 150000, currency: 'COP'
@@ -1286,7 +1292,22 @@ ttq.track('ViewContent', {
   // Guarda un pedido en Firestore (coleccion "pedidos").
   // Resuelve en <=6s pase lo que pase, para no dejar al cliente esperando
   // si la red falla.
+  // Identificadores de TikTok: el ttclid del anuncio y la cookie _ttp que
+  // pone el píxel. Sin ellos TikTok no sabe qué anuncio trajo la venta.
+  function idsTikTok(){
+    var out = {};
+    try{
+      out.ttclid = new URLSearchParams(location.search).get('ttclid') ||
+                   localStorage.getItem('ttclid') || '';
+      var m = document.cookie.match(/(?:^|;\s*)_ttp=([^;]+)/);
+      out.ttp = m ? decodeURIComponent(m[1]) : '';
+    }catch(e){}
+    return out;
+  }
+
   window.guardarPedido = function(data){
+    data = Object.assign({}, data, idsTikTok());
+
     // Copia a Google Sheets. sendBeacon sobrevive el cambio de página: el envío
     // sale aunque el cliente avance de inmediato a gracias.html.
     try{
