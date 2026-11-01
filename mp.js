@@ -61,6 +61,7 @@ var MP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxUPRSHhFDQF8h3yBGBUR
 
     // Evento Lead (formulario enviado)
     try { if (window.fbq) fbq('track', 'Lead', { content_name: PRODUCTO, content_type: 'product', currency: 'COP', value: total || undefined }, { eventID: ref + '-lead' }); } catch (e) {}
+    try { if (window.ttq) ttq.track('PlaceAnOrder', { contents: [{ content_id: 'velez-thomas', content_type: 'product', content_name: PRODUCTO, quantity: 1, price: total || undefined }], value: total || undefined, currency: 'COP' }, { event_id: ref + '-order' }); } catch (e) {}
 
     // 1) Guardar el pedido como "pago pendiente" (Firestore + hoja existente), sin esperar más de 6 s
     var guardado = Promise.resolve();
@@ -144,6 +145,10 @@ var MP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxUPRSHhFDQF8h3yBGBUR
             content_name: PRODUCTO, content_type: 'product', contents: [{ id: PRODUCTO, quantity: 1 }],
             num_items: 1, value: res.total, currency: 'COP'
           }, { eventID: ref });
+          if (window.ttq) ttq.track('CompletePayment', {
+            contents: [{ content_id: 'velez-thomas', content_type: 'product', content_name: PRODUCTO, quantity: 1, price: res.total }],
+            value: res.total, currency: 'COP'
+          }, { event_id: ref });
         }
       } catch (e) {}
     }
