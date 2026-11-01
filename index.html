@@ -1311,7 +1311,7 @@ ttq.track('ViewContent', {
     // Copia a Google Sheets. sendBeacon sobrevive el cambio de página: el envío
     // sale aunque el cliente avance de inmediato a gracias.html.
     try{
-      const paraHoja = JSON.stringify(Object.assign({}, data, { origen: location.href }));
+      const paraHoja = JSON.stringify(Object.assign({}, data, { origen: location.href, navegador: navigator.userAgent }));
       const enviado = navigator.sendBeacon &&
         navigator.sendBeacon(HOJA_URL, new Blob([paraHoja], {type:'text/plain;charset=UTF-8'}));
       if(!enviado){
