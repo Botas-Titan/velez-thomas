@@ -276,9 +276,6 @@ ttq.track('ViewContent', {
   .testi-media video,.testi-media img{width:100%;height:100%;object-fit:contain;display:block}
   .testi-media .insignia{position:absolute;top:10px;left:10px;z-index:2;background:rgba(0,0,0,.6);
     color:#fff;font-size:.68rem;font-weight:600;padding:5px 11px;border-radius:20px;letter-spacing:.03em}
-  .testi-sonido{position:absolute;right:10px;bottom:10px;z-index:3;background:rgba(0,0,0,.62);
-    color:#fff;border:none;border-radius:20px;padding:7px 13px;font-size:.76rem;font-weight:600;
-    cursor:pointer;font-family:inherit}
   .testi-play{position:absolute;inset:0;z-index:3;display:none;align-items:center;justify-content:center;
     background:rgba(0,0,0,.35);border:none;color:#fff;font-size:2.6rem;cursor:pointer}
   .testi-pie{padding:13px 15px 15px}
@@ -1088,7 +1085,7 @@ ttq.track('ViewContent', {
     var barra = document.getElementById('testi-progreso');
     if(!track || !TESTIMONIOS.length) return;
 
-    var i = 0, temporizador = null, animacion = null, conSonido = false, visible = true;
+    var i = 0, temporizador = null, animacion = null, visible = true;
 
     // ---- armar las tarjetas ----
     TESTIMONIOS.forEach(function(t, n){
@@ -1099,7 +1096,6 @@ ttq.track('ViewContent', {
         ? '<video playsinline webkit-playsinline muted preload="none" ' +
               'poster="' + (t.portada||'') + '" src="' + t.src + '"></video>' +
           '<span class="insignia">▶ Video real</span>' +
-          '<button class="testi-sonido" type="button">🔇 Toca para oír</button>' +
           '<button class="testi-play" type="button" aria-label="Reproducir">▶</button>'
         : '<img src="' + t.src + '" alt="' + (t.nombre||'Cliente') + '" loading="lazy">' +
           '<span class="insignia">📷 Foto real</span>';
@@ -1121,17 +1117,8 @@ ttq.track('ViewContent', {
 
     var videos = track.querySelectorAll('video');
 
-    // el botón de sonido vale para todos los videos
-    track.querySelectorAll('.testi-sonido').forEach(function(b){
-      b.addEventListener('click', function(e){
-        e.stopPropagation();
-        conSonido = !conSonido;
-        Array.prototype.forEach.call(videos, function(v){ v.muted = !conSonido; });
-        track.querySelectorAll('.testi-sonido').forEach(function(o){
-          o.textContent = conSonido ? '🔊 Con sonido' : '🔇 Toca para oír';
-        });
-      });
-    });
+    // los videos van siempre sin sonido
+    Array.prototype.forEach.call(videos, function(v){ v.muted = true; });
 
     // si el navegador bloquea el arranque automático, queda el botón de play
     track.querySelectorAll('.testi-play').forEach(function(b){
@@ -1187,7 +1174,7 @@ ttq.track('ViewContent', {
       }
 
       var v = slide.querySelector('video');
-      v.muted = !conSonido;
+      v.muted = true;
       if(btnPlay) btnPlay.style.display = 'none';
 
       // la barra sigue el avance real del video
