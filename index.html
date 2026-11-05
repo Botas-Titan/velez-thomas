@@ -263,23 +263,33 @@ ttq.track('ViewContent', {
   .badge-rating-txt .stars{color:var(--miel);font-size:.95rem;margin-left:3px}
   .badge-rating-txt span{font-size:.72rem;color:var(--gris);white-space:nowrap}
 
-  /* Testimonios (carrusel 1 a 1) */
-  .testi h2{text-align:center;font-size:1.4rem;color:var(--texto);margin-bottom:18px}
-  .carousel{overflow:hidden;border-radius:14px}
-  .carousel-track{display:flex;transition:transform .5s ease}
-  .slide{flex:0 0 100%;padding:2px}
-  .card-t{background:var(--crema2);border:1px solid var(--linea);border-radius:14px;padding:16px;box-shadow:var(--sombra)}
-  .card-t-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-  .avatar{width:48px;height:48px;border-radius:50%;flex:0 0 48px;object-fit:cover;
-    border:2px solid var(--miel);background:var(--crema2)}
+  /* Testimonios (carrusel que avanza solo; si hay video, espera a que termine) */
+  .testi h2{text-align:center;font-size:1.4rem;color:var(--texto);margin-bottom:4px}
+  .testi .sub-testi{text-align:center;color:var(--gris);font-size:.85rem;margin-bottom:16px}
+  .carousel{overflow:hidden;border-radius:16px}
+  .carousel-track{display:flex;transition:transform .45s ease;align-items:stretch}
+  .slide{flex:0 0 100%;min-width:100%;padding:2px}
+  .card-t{background:var(--crema2);border:1px solid var(--linea);border-radius:16px;
+    overflow:hidden;box-shadow:var(--sombra);height:100%}
+  /* Marco de la foto o el video: mismo alto para todos, el contenido entra completo */
+  .testi-media{position:relative;background:#141210;height:min(56vh,500px)}
+  .testi-media video,.testi-media img{width:100%;height:100%;object-fit:contain;display:block}
+  .testi-media .insignia{position:absolute;top:10px;left:10px;z-index:2;background:rgba(0,0,0,.6);
+    color:#fff;font-size:.68rem;font-weight:600;padding:5px 11px;border-radius:20px;letter-spacing:.03em}
+  .testi-sonido{position:absolute;right:10px;bottom:10px;z-index:3;background:rgba(0,0,0,.62);
+    color:#fff;border:none;border-radius:20px;padding:7px 13px;font-size:.76rem;font-weight:600;
+    cursor:pointer;font-family:inherit}
+  .testi-play{position:absolute;inset:0;z-index:3;display:none;align-items:center;justify-content:center;
+    background:rgba(0,0,0,.35);border:none;color:#fff;font-size:2.6rem;cursor:pointer}
+  .testi-pie{padding:13px 15px 15px}
   .card-t .nombre{font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .card-t .ciudad{font-size:.74rem;color:var(--gris)}
+  .card-t .ciudad{font-size:.74rem;color:var(--gris);margin-top:2px}
   .card-t .stars{color:var(--miel);font-size:.82rem}
-  .card-t p{font-size:.86rem;color:var(--texto)}
+  .card-t p{font-size:.86rem;color:var(--texto);margin:9px 0 0}
   .verificado{color:var(--verde);font-weight:600}
-  .dots{display:flex;gap:8px;justify-content:center;margin-top:14px}
-  .dot{width:9px;height:9px;border-radius:50%;background:#d8cbb4;border:none;cursor:pointer;padding:0;transition:.2s}
-  .dot.act{background:var(--miel);width:22px;border-radius:5px}
+  /* Barra que muestra cuánto falta para pasar al siguiente */
+  .testi-barra{height:3px;background:var(--linea);border-radius:3px;overflow:hidden;margin-top:14px}
+  .testi-barra i{display:block;height:100%;width:0;background:var(--miel);border-radius:3px}
 
   /* Recuadro blanco de contraste (segundo CTA) */
   .callout-blanco{background:#fff;border-radius:16px;padding:20px 18px;margin-bottom:18px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
@@ -623,77 +633,17 @@ ttq.track('ViewContent', {
     </div>
   </section>
 
-  <!-- ========== 6. TESTIMONIOS (carrusel 1 a 1) ========== -->
-  <!-- 📸 Cambia los src de las fotos por fotos REALES de tus clientes (img/cliente-1.jpg, etc.).
-       Las de abajo son fotografías reales de banco libre (no IA), solo de ejemplo. -->
-  <section class="sec testi">
+  <!-- ========== 6. TESTIMONIOS (carrusel que avanza solo) ========== -->
+  <!-- 🎥 Los testimonios se arman solos desde la lista TESTIMONIOS que está más abajo,
+       en la parte de JavaScript. Para agregar uno nuevo basta con copiar un bloque ahí. -->
+  <section class="sec testi" id="testi">
     <h2>Lo que dicen nuestros clientes</h2>
+    <p class="sub-testi">Videos y fotos reales de quienes ya los tienen puestos</p>
 
     <div class="carousel">
-      <div class="carousel-track" id="testi-track">
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&q=80&auto=format&fit=crop" alt="Andrés Gómez">
-          <div><div class="nombre">Andrés Gómez <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Bogotá · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Excelente calidad, el cuero se siente premium. Los uso para trabajar y para salir. Llegaron en 3 días."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&q=80&auto=format&fit=crop" alt="Carolina Restrepo">
-          <div><div class="nombre">Carolina Restrepo <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Medellín · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Se los compré a mi esposo en color miel y quedó feliz. Muy cómodos y el pago contraentrega me dio confianza."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&q=80&auto=format&fit=crop" alt="Julián Pérez">
-          <div><div class="nombre">Julián Pérez <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Cali · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Pedí el negro. Elegantes y resistentes. La atención por WhatsApp fue rapidísima. Recomendados 100%."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=120&h=120&q=80&auto=format&fit=crop" alt="Santiago Ríos">
-          <div><div class="nombre">Santiago Ríos <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Barranquilla · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Súper cómodos desde el primer día, no me sacaron ampollas. La suela es firme. Volveré a comprar."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&q=80&auto=format&fit=crop" alt="Daniela Ospina">
-          <div><div class="nombre">Daniela Ospina <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Bucaramanga · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Llegaron tal cual la foto. El color miel es hermoso. Mi papá quedó encantado con el regalo."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&q=80&auto=format&fit=crop" alt="Camilo Torres">
-          <div><div class="nombre">Camilo Torres <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Cartagena · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Buenísimos para la oficina. Elegantes y frescos a pesar del calor de la costa. Recomendados."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&h=120&q=80&auto=format&fit=crop" alt="Valentina Muñoz">
-          <div><div class="nombre">Valentina Muñoz <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Pereira · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Pedí el par para mi novio y le fascinó. Pago contraentrega, todo transparente. 100% recomendados."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=120&h=120&q=80&auto=format&fit=crop" alt="Felipe Cárdenas">
-          <div><div class="nombre">Felipe Cárdenas <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Manizales · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Ya llevo dos meses usándolos casi a diario y siguen como nuevos. Excelente relación calidad-precio."</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120&h=120&q=80&auto=format&fit=crop" alt="Laura Jiménez">
-          <div><div class="nombre">Laura Jiménez <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Ibagué · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Me asesoraron con la talla por WhatsApp y quedó perfecta. Llegó antes de lo esperado. Gracias!"</p></div></div>
-
-        <div class="slide"><div class="card-t"><div class="card-t-top">
-          <img class="avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=120&h=120&q=80&auto=format&fit=crop" alt="Mateo Vargas">
-          <div><div class="nombre">Mateo Vargas <span class="stars">★★★★★</span></div>
-          <div class="ciudad">Cúcuta · <span class="verificado">✔ Compra verificada</span></div></div>
-        </div><p>"Compré el negro para un matrimonio y me lucí. Cuero de verdad, se nota la calidad. Top."</p></div></div>
-
-      </div>
+      <div class="carousel-track" id="testi-track"><!-- se llena solo --></div>
     </div>
+    <div class="testi-barra"><i id="testi-progreso"></i></div>
   </section>
 
   <!-- ========== 9. SEGUNDO CTA ========== -->
@@ -1099,28 +1049,188 @@ ttq.track('ViewContent', {
     document.getElementById('p-entrega').textContent='· aprox. '+fmt(ent);
   })();
 
-  // ---- Carrusel de testimonios (1 a 1, auto + swipe, sin puntos) ----
+  // ============================================================
+  // 🎥 TESTIMONIOS — carrusel que avanza solo
+  //    Si el testimonio es un video, NO pasa al siguiente hasta
+  //    que el video termine. Los que son foto duran SEGUNDOS_FOTO.
+  //
+  //    Para agregar uno nuevo, copia un bloque de abajo y cambia los datos:
+  //      tipo    : 'video'  o  'foto'
+  //      src     : el archivo (video/...mp4  o  img/...jpg)
+  //      portada : solo para video, la imagen que se ve antes de arrancar
+  //      nombre / ciudad / texto : lo que va debajo de la foto o el video
+  //      estrellas : cuántas mostrar (0 = no mostrar ninguna)
+  // ============================================================
+  var SEGUNDOS_FOTO = 6;
+
+  var TESTIMONIOS = [
+    {
+      tipo: 'video',
+      src: 'video/testi-1.mp4',
+      portada: 'img/testi-1-portada.jpg',
+      nombre: 'Cliente verificado',
+      ciudad: '',
+      texto: '',
+      estrellas: 5
+    },
+    {
+      tipo: 'foto',
+      src: 'img/testi-2.jpg',
+      nombre: 'Cliente verificado',
+      ciudad: '',
+      texto: '',
+      estrellas: 5
+    }
+  ];
+
   (function(){
     var track = document.getElementById('testi-track');
-    if(!track) return;
-    var slides = track.children.length;
-    var i = 0, timer;
-    function go(n){
-      i=(n+slides)%slides;
-      track.style.transform='translateX(-'+(i*100)+'%)';
+    var barra = document.getElementById('testi-progreso');
+    if(!track || !TESTIMONIOS.length) return;
+
+    var i = 0, temporizador = null, animacion = null, conSonido = false, visible = true;
+
+    // ---- armar las tarjetas ----
+    TESTIMONIOS.forEach(function(t, n){
+      var slide = document.createElement('div');
+      slide.className = 'slide';
+
+      var medio = t.tipo === 'video'
+        ? '<video playsinline webkit-playsinline muted preload="none" ' +
+              'poster="' + (t.portada||'') + '" src="' + t.src + '"></video>' +
+          '<span class="insignia">▶ Video real</span>' +
+          '<button class="testi-sonido" type="button">🔇 Toca para oír</button>' +
+          '<button class="testi-play" type="button" aria-label="Reproducir">▶</button>'
+        : '<img src="' + t.src + '" alt="' + (t.nombre||'Cliente') + '" loading="lazy">' +
+          '<span class="insignia">📷 Foto real</span>';
+
+      slide.innerHTML =
+        '<div class="card-t">' +
+          '<div class="testi-media">' + medio + '</div>' +
+          '<div class="testi-pie">' +
+            '<div class="nombre">' + (t.nombre||'Cliente') +
+              (t.estrellas ? ' <span class="stars">' +
+                 new Array(t.estrellas+1).join('★') + '</span>' : '') + '</div>' +
+            '<div class="ciudad">' + (t.ciudad ? t.ciudad + ' · ' : '') +
+              '<span class="verificado">✔ Compra verificada</span></div>' +
+            (t.texto ? '<p>"' + t.texto + '"</p>' : '') +
+          '</div>' +
+        '</div>';
+      track.appendChild(slide);
+    });
+
+    var videos = track.querySelectorAll('video');
+
+    // el botón de sonido vale para todos los videos
+    track.querySelectorAll('.testi-sonido').forEach(function(b){
+      b.addEventListener('click', function(e){
+        e.stopPropagation();
+        conSonido = !conSonido;
+        Array.prototype.forEach.call(videos, function(v){ v.muted = !conSonido; });
+        track.querySelectorAll('.testi-sonido').forEach(function(o){
+          o.textContent = conSonido ? '🔊 Con sonido' : '🔇 Toca para oír';
+        });
+      });
+    });
+
+    // si el navegador bloquea el arranque automático, queda el botón de play
+    track.querySelectorAll('.testi-play').forEach(function(b){
+      b.addEventListener('click', function(){
+        var v = b.parentNode.querySelector('video');
+        b.style.display = 'none';
+        v.play().catch(function(){});
+      });
+    });
+
+    function limpiar(){
+      clearTimeout(temporizador); temporizador = null;
+      if(animacion){ cancelAnimationFrame(animacion); animacion = null; }
+      barra.style.width = '0%';
     }
-    function next(){go(i+1);}
-    function reset(){clearInterval(timer);timer=setInterval(next,4000);}
-    reset();
-    // swipe en móvil
-    var x0=null;
-    track.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
-    track.addEventListener('touchend',function(e){
-      if(x0===null)return;
-      var dx=e.changedTouches[0].clientX-x0;
-      if(Math.abs(dx)>40){ dx<0?go(i+1):go(i-1); reset(); }
-      x0=null;
-    },{passive:true});
+
+    function pararVideos(){
+      Array.prototype.forEach.call(videos, function(v){
+        v.pause(); try{ v.currentTime = 0; }catch(e){}
+      });
+    }
+
+    function avanzar(){ mostrar(i + 1); }
+
+    // barra de progreso para los testimonios de foto
+    function correrBarra(ms){
+      var inicio = performance.now();
+      (function paso(ahora){
+        var p = Math.min(1, (ahora - inicio) / ms);
+        barra.style.width = (p*100) + '%';
+        if(p < 1) animacion = requestAnimationFrame(paso);
+      })(inicio);
+    }
+
+    function mostrar(n){
+      limpiar();
+      pararVideos();
+      i = (n + TESTIMONIOS.length) % TESTIMONIOS.length;
+      track.style.transform = 'translateX(-' + (i*100) + '%)';
+      if(!visible) return;             // la sección no está en pantalla: no gastar datos
+      arrancarActual();
+    }
+
+    function arrancarActual(){
+      var t = TESTIMONIOS[i];
+      var slide = track.children[i];
+      var btnPlay = slide.querySelector('.testi-play');
+
+      if(t.tipo !== 'video'){
+        correrBarra(SEGUNDOS_FOTO*1000);
+        temporizador = setTimeout(avanzar, SEGUNDOS_FOTO*1000);
+        return;
+      }
+
+      var v = slide.querySelector('video');
+      v.muted = !conSonido;
+      if(btnPlay) btnPlay.style.display = 'none';
+
+      // la barra sigue el avance real del video
+      v.ontimeupdate = function(){
+        if(v.duration) barra.style.width = (v.currentTime / v.duration * 100) + '%';
+      };
+      v.onended = function(){ avanzar(); };
+
+      var intento = v.play();
+      if(intento && intento.catch){
+        intento.catch(function(){
+          // el navegador no dejó arrancar solo: mostramos el botón y seguimos de largo
+          if(btnPlay) btnPlay.style.display = 'flex';
+          temporizador = setTimeout(avanzar, 9000);
+        });
+      }
+      // red de seguridad: si el video no carga, no dejamos el carrusel trabado
+      v.onerror = function(){ temporizador = setTimeout(avanzar, 1200); };
+    }
+
+    // ---- deslizar con el dedo ----
+    var x0 = null;
+    track.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    track.addEventListener('touchend', function(e){
+      if(x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if(Math.abs(dx) > 40) mostrar(dx < 0 ? i+1 : i-1);
+      x0 = null;
+    }, {passive:true});
+
+    // ---- solo corre cuando la sección está a la vista ----
+    if('IntersectionObserver' in window){
+      visible = false;                 // arranca cuando el cliente llegue a la sección
+      new IntersectionObserver(function(e){
+        var ahora = e[0].isIntersecting;
+        if(ahora === visible) return;  // sin cambios, no reiniciar nada
+        visible = ahora;
+        limpiar(); pararVideos();
+        if(visible) arrancarActual();
+      }, {threshold:.35}).observe(document.getElementById('testi'));
+    }
+
+    mostrar(0);
   })();
 
   // ---- Barra fija al hacer scroll ----
